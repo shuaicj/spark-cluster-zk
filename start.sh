@@ -2,13 +2,12 @@
 DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 
 usage() {
-    echo "USAGE: ./start-all.sh [slave-num]"
+    echo "USAGE: ./start.sh [slave-num]"
     echo "the param [slave-num] is optional, default 3"
 }
 
 run() {
-    cd $DIR && docker-compose up -d zk1 zk2 zk3 master masterb slave
-    cd $DIR && docker-compose scale slave=$1
+    cd $DIR && docker-compose up -d --scale slave=$1 zk1 zk2 zk3 master masterb slave
     cd $DIR && docker-compose run driver
 }
 
